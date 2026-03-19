@@ -25,15 +25,17 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    data = request.json["image"]
-    image_data = base64.b64decode(data.split(",")[1])
+    try:
+        data = request.json["image"]
+        image_data = base64.b64decode(data.split(",")[1])
 
-    processed = preprocess_image(image_data)
-    prediction = model.predict(processed)
+        processed = preprocess_image(image_data)
+        prediction = model.predict(processed)
 
-    return jsonify({
-        "prediction": int(np.argmax(prediction))
-    })
-
+        return jsonify({
+            "prediction": int(np.argmax(prediction))
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 if __name__ == "__main__":
     app.run(debug=True)
