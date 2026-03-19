@@ -3,9 +3,5 @@ uvicorn[standard]>=0.27
 numpy>=1.26
 tensorflow>=2.15
 flask
-flask-cors
-tensorflow
-numpy
 pillow
-gunicorn
 
